@@ -13,10 +13,11 @@
 #ifndef GARBAGE_H
 # define GARBAGE_H
 
-# include "list.h"
+# include <list.h>
 
 typedef void	(*t_destructor)(void *);
 
+int		garbage_collector(void *data, t_destructor destructor, int action);
 int		garbage_add(void *data, t_destructor destructor);
 void	garbage_save(void);
 void	garbage_load(void);

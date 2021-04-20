@@ -12,22 +12,22 @@
 
 #include <garbage.h>
 
-int		gb_add(void *data, t_destructor destructor)
+int	gb_add(void *data, t_destructor destructor)
 {
-	return (garage_collector(data, destructor, 0));
+	return (garbage_collector(data, destructor, 0));
 }
 
-int		gb_save(void)
+int	gb_save(void)
 {
 	return (garbage_collector(NULL, NULL, 1));
 }
 
-int		gb_load(void)
+int	gb_load(void)
 {
 	return (garbage_collector(NULL, NULL, 2));
 }
 
 void	gb_clear(void)
 {
-	return (garbage_collector(NULL, NULL, 3));
+	garbage_collector(NULL, NULL, 3);
 }

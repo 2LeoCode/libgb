@@ -1,5 +1,5 @@
 SHELL =		/bin/sh
-NAME =		a.out
+NAME =		libgb.a
 
 .SUFFIXES =	.c .o .h
 
@@ -9,9 +9,12 @@ LIBDIR =	lib
 OBJDIR =	.obj
 
 SRC =		$(addsuffix $(word 1, $(.SUFFIXES)),\
-			)
+			gb_main\
+			gb_operations)
 INC =		$(addsuffix $(word 3, $(.SUFFIXES)),\
-			)
+			libft\
+			list\
+			garbage)
 LIB =
 OBJ =		$(SRC:$(word 1, $(.SUFFIXES))=$(word 2, $(.SUFFIXES)))
 
@@ -40,12 +43,14 @@ $(OBJDIR):
 
 $(NAME): $(addprefix $(OBJDIR)/, $(OBJ))
 	@printf "$(KCYN)[  Linking  ]\n➤ "
-	$(CC) $(CFLAGS) $^ $@ $(LCFLAGS)
+	ranlib $@
 	@printf "$(KNRM)"
 
 $(OBJDIR)/%$(word 2, $(.SUFFIXES)): $(SRCDIR)/%$(word 1, $(.SUFFIXES)) $(addprefix $(INCDIR)/, $(INC))
 	@printf "$(KMAG)[  Compiling  ]\n➤ "
 	$(CC) $(CFLAGS) -c $< -o $@
+	@printf "➤ "
+	ar rc $(NAME) $@
 	@printf "$(KNRM)"
 
 clean:
