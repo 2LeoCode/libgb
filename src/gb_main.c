@@ -25,7 +25,7 @@ static int	garbage_collector_failure(t_list **gb,
 	return (-1);
 }
 
-static void	destroy_garbage(t_list *garbage, t_list *saved)
+static void	destroy_garbage(t_list **garbage, t_list **saved)
 {
 	lst_destroy(*garbage);
 	*garbage = NULL;
