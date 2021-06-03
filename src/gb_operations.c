@@ -12,6 +12,14 @@
 
 #include <garbage.h>
 
+int	gb_alloc(void **data, size_t size)
+{
+	*data = malloc(size);
+	if (!*data || gb_add(*data, free))
+		return (-1);
+	return (0);
+}
+
 int	gb_add(void *data, t_destructor destructor)
 {
 	return (garbage_collector(data, destructor, 0));
@@ -27,7 +35,7 @@ int	gb_load(void)
 	return (garbage_collector(NULL, NULL, 2));
 }
 
-void	gb_clear(void)
+int	gb_clear(void)
 {
-	garbage_collector(NULL, NULL, 3);
+	return (garbage_collector(NULL, NULL, 3));
 }

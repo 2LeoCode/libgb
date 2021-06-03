@@ -17,25 +17,58 @@ static int	garbage_collector_failure(t_list **gb,
 				void *data,
 				t_destructor destructor)
 {
+	t_list			*it;
+	t_pair			*datapair;
+	t_destructor	des;
+
+	it = (*gb)->next;
+	while (it != *gb)
+	{
+		datapair = (t_pair *)(*gb)->data;
+		des = (t_destructor)datapair->second;
+		(*des)(datapair->first);
+		it = it->next;
+	}
 	lst_destroy(*gb);
+	it = (*sv)->next;
+	while (it != *sv)
+	{
+		datapair = (t_pair *)(*sv)->data;
+		des = (t_destructor)datapair->second;
+		(*des)(datapair->first);
+		it = it->next;
+	}
 	lst_destroy(*sv);
 	*gb = NULL;
 	*sv = NULL;
-	(*destructor)(data);
+	if (destructor)
+		(*destructor)(data);
 	return (-1);
 }
 
-static void	destroy_garbage(t_list **garbage, t_list **saved)
+static void	destroy_garbage(t_list **gb, t_list **sv)
 {
-	lst_destroy(*garbage);
-	*garbage = NULL;
-	if ((*saved)->next == *saved)
+	t_list			*it;
+	t_pair			*datapair;
+	t_destructor	destructor;
+
+	it = (*gb)->next;
+	while (it != *gb)
 	{
-		free(*saved);
-		*saved = NULL;
+		datapair = (t_pair *)(*gb)->data;
+		destructor = (t_destructor)datapair->second;
+		(*destructor)(datapair->first);
+		it = it->next;
+	}
+	lst_destroy(*gb);
+	*gb = NULL;
+	if ((*sv)->next == *sv)
+	{
+		free(*sv);
+		*sv = NULL;
 	}
 }
-
+#include <stdio.h>
 int	garbage_collector(void *data, t_destructor destructor, int action)
 {
 	static t_list	*garbage = NULL;

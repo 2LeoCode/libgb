@@ -19,6 +19,7 @@
 #  define LOMAGIC -1
 # endif
 
+# define SWAP_BUFFER_SIZE 128
 # define NULL_ENDED ((unsigned int)-1)
 
 unsigned int		ft_abs(int n);
@@ -28,9 +29,11 @@ long				ft_atol(const char *s);
 unsigned long		ft_atol_u(const char *s);
 long long			ft_atoll(const char *s);
 unsigned long long	ft_atoll_u(const char *s);
+void				ft_beep(void);
 void				ft_bzero(void *s, size_t n);
 void				*ft_calloc(size_t count, size_t size);
 void				ft_destroy_array(void **ar, unsigned int size);
+int					ft_getchar(void);
 int					ft_isalnum(int c);
 int					ft_isalpha(int c);
 int					ft_isascii(int c);
@@ -46,6 +49,7 @@ char				*ft_lltoa_u(unsigned long long n);
 char				*ft_ltoa(long n);
 char				*ft_ltoa_u(unsigned long n);
 void				*ft_memccpy(void *dst, const void *src, int c, size_t n);
+void				*ft_memcdup(const void *s, size_t len, char c);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
@@ -81,12 +85,24 @@ int					ft_strcasecmp(const char *s1, const char *s2);
 char				*ft_strcasestr(const char *haystack, const char *needle);
 char				*ft_strcat(char *dst, const char *src);
 char				*ft_strcdup(const char *s, char c);
-char				*ft_strcdup2(const char *s, size_t len, char c);
 char				*ft_strchr(const char *s, int c);
 int					ft_strcmp(const char *s1, const char *s2);
 char				*ft_strcpy(char *dst, const char *src);
 char				*ft_strdup(const char *s1);
+int					ft_strerase(char **s, unsigned int i,
+						void (*free_fun)(void *));
+int					ft_strinsert(char **s, unsigned int i, int c,
+						void (*free_fun)(void *));
+int					ft_strisalnum(const char *s);
+int					ft_strisalpha(const char *s);
+int					ft_strisascii(const char *s);
+int					ft_strisdigit(const char *s);
+int					ft_strislower(const char *s);
+int					ft_strisprint(const char *s);
+int					ft_strisspace(const char *s);
+int					ft_strisupper(const char *s);
 char				*ft_strjoin(const char *s1, const char *s2);
+char				*ft_strcjoin(const char *s1, const char *s2, int c);
 size_t				ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t				ft_strlen(const char *s);
@@ -101,6 +117,7 @@ size_t				ft_strnlen(const char *s, size_t maxlen);
 char				*ft_strnstr(const char *haystack, const char *needle,
 						size_t n);
 char				*ft_strrchr(const char *s, int c);
+int					ft_strreplace(char *s, char *before, char *after);
 char				*ft_strstr(const char *haystack, const char *needle);
 char				*ft_strtrim(const char *s, const char *set);
 char				*ft_substr(const char *s, unsigned start, size_t n);
