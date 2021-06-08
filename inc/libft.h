@@ -89,10 +89,8 @@ char				*ft_strchr(const char *s, int c);
 int					ft_strcmp(const char *s1, const char *s2);
 char				*ft_strcpy(char *dst, const char *src);
 char				*ft_strdup(const char *s1);
-int					ft_strerase(char **s, unsigned int i,
-						void (*free_fun)(void *));
-int					ft_strinsert(char **s, unsigned int i, int c,
-						void (*free_fun)(void *));
+int					ft_strerase(char **s, unsigned int i);
+int					ft_strinsert(char **s, unsigned int i, int c);
 int					ft_strisalnum(const char *s);
 int					ft_strisalpha(const char *s);
 int					ft_strisascii(const char *s);
@@ -118,11 +116,14 @@ char				*ft_strnstr(const char *haystack, const char *needle,
 						size_t n);
 char				*ft_strrchr(const char *s, int c);
 int					ft_strreplace(char *s, char *before, char *after);
+int					ft_strreplace_first(char **dst_ptr, char *before,
+						char *after, void (*destructor)(void *));
 char				*ft_strstr(const char *haystack, const char *needle);
 char				*ft_strtrim(const char *s, const char *set);
 char				*ft_substr(const char *s, unsigned start, size_t n);
 void				ft_swap(void *a, void *b, size_t size);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
+size_t				ft_wrdlen(const char *s);
 
 #endif
